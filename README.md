@@ -2,12 +2,12 @@
 
 🎙️ AI Desktop Voice Assistant
 
-🚀 Overview
+## Overview
 
 The AI Desktop Voice Assistant, named Jarvis, is a Python-based virtual assistant that can understand voice commands, perform tasks, and provide information using Natural Language Processing (NLP) and Speech Recognition. This project enhances user productivity by automating common desktop tasks through voice commands.
 
 
-✨ Features
+## Features
 
    🗣️ Voice Recognition: Converts spoken language into text using SpeechRecognition.
    
@@ -26,7 +26,7 @@ The AI Desktop Voice Assistant, named Jarvis, is a Python-based virtual assistan
 
 
 
-🛠️ Technologies Used
+## Technologies Used
 
    🐍 Python (Core logic and scripting)
    
@@ -49,7 +49,7 @@ The AI Desktop Voice Assistant, named Jarvis, is a Python-based virtual assistan
 
 
 
-📥 Installation
+## Installation
 
     🔹 Prerequisites
     
@@ -80,7 +80,7 @@ Run the assistant:
 
 
 
-🎯 Usage
+## Usage
 
     Run the script and speak commands into your microphone.
     
@@ -113,6 +113,6 @@ Example commands:
 
 
 
-🤝 Contributing
+## Contributing
 
 Contributions are welcome! Feel free to submit issues or pull requests to improve the assistant.
