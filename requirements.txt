@@ -1,0 +1,10 @@
+speechrecognition
+pyaudio
+pywhatkit
+wikipedia-api
+google-generativeai
+pyttsx3
+edge-tts
+pygame
+pyautogui
+pyjokes
