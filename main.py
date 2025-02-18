@@ -10,7 +10,7 @@ from Voice import *
 import google.generativeai as genai
 
 # Configure Google Gemini API
-genai.configure(api_key="AIzaSyBBF5wppFXSqZdP2Ffi2x08zMCwlgldeE4")
+genai.configure(api_key="YOUR API KEY")
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 
