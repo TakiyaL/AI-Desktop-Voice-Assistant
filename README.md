@@ -59,7 +59,7 @@ The AI Desktop Voice Assistant, named Jarvis, is a Python-based virtual assistan
     
      Clone the repository:
      
-     git clone https://github.com/your-username/AI-Desktop-Voice-Assistant.git
+     git clone https://github.com/TakiyaL/AI-Desktop-Voice-Assistant.git
      
      cd AI-Desktop-Voice-Assistant
 
