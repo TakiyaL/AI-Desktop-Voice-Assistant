@@ -11,7 +11,7 @@ import google.generativeai as genai
 
 # Configure Google Gemini API
 genai.configure(api_key="YOUR API KEY")
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-3.1-flash-lite")
 
 
 def listen():
