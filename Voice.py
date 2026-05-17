@@ -1,70 +1,83 @@
 import asyncio
-import threading
 import os
 import edge_tts
 import pygame
+import time
 
-VOICE = "en-GB-RyanNeural"   #"en-AU-WilliamNeural"
-BUFFER_SIZE = 1024
+VOICE = "en-US-AndrewNeural" 
 
+# Initialize pygame once
+pygame.mixer.init()
+
+# ---------------- REMOVE FILE ----------------
 def remove_file(file_path):
-    max_attempts = 3
-    attempts = 0
-    while attempts < max_attempts:
+
+    for _ in range(5):
+
         try:
-            with open(file_path, 'wb'):
-                pass  # Try to close the file handle
-            os.remove(file_path)
-            break  # If successful, break out of the loop
-        except Exception as e:
-            print(f"Error removing file: {e}")
-            attempts += 1
+            if os.path.exists(file_path):
 
-async def amain(TEXT, output_file) -> None:
-    try:
-        # Main function
-        communicate = edge_tts.Communicate(TEXT, VOICE)
-        await communicate.save(output_file)
+                os.remove(file_path)
 
-        # Use threading to run audio playback in a separate thread
-        thread = threading.Thread(target=play_audio, args=(output_file,))
-        thread.start()
-        thread.join()  # Wait for the audio playback thread to finish
+            break
 
-    except Exception as e:
-        print(f"Error: {e}")
+        except PermissionError:
 
-    finally:
-        remove_file(output_file)
+            time.sleep(0.2)
 
+# ---------------- PLAY AUDIO ----------------
 def play_audio(file_path):
+
     try:
-        # Initialize pygame
-        pygame.init()
 
-        # Open the audio file
-        pygame.mixer.init()
-        sound = pygame.mixer.Sound(file_path)
+        pygame.mixer.music.load(file_path)
 
-        # Play the audio
-        sound.play()
+        pygame.mixer.music.play()
 
-        # Wait for the audio to finish playing
-        while pygame.mixer.get_busy():
+        while pygame.mixer.music.get_busy():
+
             pygame.time.Clock().tick(10)
 
-        # Quit pygame
-        pygame.quit()
+    except Exception as e:
+
+        print(f"Audio Error: {e}")
+
+# ---------------- TEXT TO SPEECH ----------------
+async def amain(text, output_file):
+
+    try:
+
+        communicate = edge_tts.Communicate(text, VOICE)
+
+        await communicate.save(output_file)
+
+        play_audio(output_file)
 
     except Exception as e:
-        print(f"Error during audio playback: {e}")
 
-def speak(TEXT, output_file=None):
-    if output_file is None:
-        output_file = f"{os.getcwd()}/speak.mp3"
-    print("")
-    print(f"==> Jarvis AI : {TEXT}")
-    print("")
-    asyncio.run(amain(TEXT, output_file))
-    
+        print(f"TTS Error: {e}")
 
+    finally:
+
+        pygame.mixer.music.unload()
+
+        remove_file(output_file)
+
+# ---------------- MAIN SPEAK FUNCTION ----------------
+def speak(text, output_file="speak.mp3"):
+
+    print(f"\n==> Jarvis AI: {text}\n")
+
+    try:
+
+        asyncio.run(amain(text, output_file))
+
+    except RuntimeError:
+        # Fix for Jupyter/Streamlit running loop
+
+        loop = asyncio.get_event_loop()
+
+        loop.run_until_complete(
+            amain(text, output_file)
+        )
+speak("Initializing Jarvis AI...")
